@@ -1,35 +1,34 @@
 import {
-  Container,
   Button,
-  ButtonGroup,
   FormControl,
-  FormLabel,
   RadioGroup,
   Radio,
   FormControlLabel,
   Grid,
 } from "@mui/material";
 import CircularProgressWithLabel from "../circularProgressWithLabel/CircularProgressWithLabel";
-import { Question } from "../../interface/interfaces";
-import { findRightOne, shuffleArray } from "../../helper";
+import { correctQuotes, findRightOne, sumAnswers } from "../../helper";
 import { Check, Close } from "@mui/icons-material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 type Props = {
-  questionObject: Question;
+  correct_answer: string;
+  question: string;
   handleNextQuestion: () => void;
+  nextQuestion: number;
+  shuffledAnswers: string[];
 };
 
 const Gaming = ({
-  questionObject: { correct_answer, incorrect_answers, question },
+  shuffledAnswers,
+  question,
+  correct_answer,
   handleNextQuestion,
 }: Props) => {
   const [toogleAnswers, setToogleAnswers] = useState(false);
   const { handleScore } = useContext(TriviaContext);
-  let shuffledQuestions = [...incorrect_answers, correct_answer];
-  shuffledQuestions = shuffleArray(shuffledQuestions);
 
   const handleAnswer = (chosenAnswer: string, correct_answer: string) => {
     handleScore(chosenAnswer, correct_answer);
@@ -62,8 +61,8 @@ const Gaming = ({
           backgroundColor: "black",
         }}
       >
-        <CircularProgressWithLabel />
-        <h1>{question}</h1>
+        <CircularProgressWithLabel handleNextQuestion={handleNextQuestion} />
+        <h1>{correctQuotes(question)}</h1>
       </Grid>
 
       <FormControl sx={{ marginTop: 8, width: 1200, paddingLeft: 2 }}>
@@ -79,7 +78,7 @@ const Gaming = ({
             justifyContent="center"
             width={1200}
           >
-            {shuffledQuestions.map((answer, index) => (
+            {shuffledAnswers.map((answer, index) => (
               <Grid
                 onClick={() => handleAnswer(answer, correct_answer)}
                 sx={{ display: "flex", alignItems: "center" }}
@@ -102,11 +101,19 @@ const Gaming = ({
                 {toogleAnswers &&
                   (findRightOne(correct_answer, answer) ? (
                     <Check
-                      sx={{ backgroundColor: "black", borderRadius: 200 }}
+                      sx={{
+                        backgroundColor: "black",
+                        borderRadius: 200,
+                        border: "3px solid green",
+                      }}
                     />
                   ) : (
                     <Close
-                      sx={{ backgroundColor: "black", borderRadius: 200 }}
+                      sx={{
+                        backgroundColor: "black",
+                        borderRadius: 200,
+                        border: "1px solid red",
+                      }}
                     />
                   ))}
               </Grid>
@@ -131,4 +138,4 @@ const Gaming = ({
   );
 };
 
-export default Gaming;
+export default React.memo(Gaming);

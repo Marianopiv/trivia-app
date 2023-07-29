@@ -12,12 +12,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { useContext } from "react";
-const settings = ["Dashboard", "Logout"];
+import { useNavigate } from "react-router-dom";
+const settings = [{option:"Dashboard",to:"/dashboard"}, {option:"Logout",to:"/"}];
 
 function ResponsiveAppBar() {
   const { user } = useContext(TriviaContext);
 
-
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -194,7 +195,7 @@ function ResponsiveAppBar() {
           >
             {settings.map((setting) => (
               <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+                <Typography onClick={()=>navigate(setting.to)} textAlign="center">{setting.option}</Typography>
               </MenuItem>
             ))}
           </Menu>

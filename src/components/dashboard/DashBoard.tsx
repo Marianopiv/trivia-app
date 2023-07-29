@@ -3,11 +3,23 @@ import StarIcon from "@mui/icons-material/Star";
 import { PieChart } from "react-minimal-pie-chart";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { TriviaContext } from "../../context/TriviaProvider";
+import { getPercentage, makeNameShorter } from "../../helper";
 const DashBoard = () => {
   const navigate = useNavigate();
+  const { getScores, userResults, averages,user } = useContext(TriviaContext);
+
+  useEffect(() => {
+    if (!user.email) {
+      navigate("/")
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
+    getScores();
+  }, []);
 
   return (
-    <Grid container sx={{marginTop:4}}>
+    <Grid container sx={{ marginTop: 4 }}>
       <Grid
         item
         xs={6}
@@ -29,9 +41,9 @@ const DashBoard = () => {
           }}
         >
           <p>Total partidas</p>
-          <p>40</p>
+          <p>{userResults.length}</p>
           <Button
-            onClick={()=>navigate("/ChooseCategory")}
+            onClick={() => navigate("/ChooseCategory")}
             variant="contained"
             color="primary"
             sx={{ zindex: 100, width: 300 }}
@@ -69,11 +81,12 @@ const DashBoard = () => {
               fontSize="large"
             />
           </Box>
-          <p>Pivo 100</p>
-          <p>Juan 80</p>
-          <p>Javier 70</p>
-          <p>Bot 70</p>
-          <p>Char 60</p>
+          {averages?.map((item) => (
+            <Box component="p" sx={{textTransform:"capitalize",textAlign:"center"}}>
+              {makeNameShorter(item.name)} {item.averageScore} (matches:
+              {item.matches})
+            </Box>
+          ))}
         </Box>
       </Grid>
       <Grid
@@ -102,8 +115,16 @@ const DashBoard = () => {
           </Box>
           <PieChart
             data={[
-              { title: "One", value: 20, color: "#00ff00" },
-              { title: "Three", value: 100, color: "#FBFBFB" },
+              {
+                title: "One",
+                value: getPercentage(userResults, "higher"),
+                color: "#00ff00",
+              },
+              {
+                title: "Three",
+                value: getPercentage(userResults),
+                color: "#FBFBFB",
+              },
             ]}
             label={({ x, y, dx, dy, dataEntry }) => (
               <text
@@ -134,7 +155,7 @@ const DashBoard = () => {
           }}
         >
           <CircleIcon sx={{ color: "lime" }} />
-          <p>Partidas Ganadas</p>
+          <p>Partidas Ganadas *6 puntos o mas</p>
         </Box>
         <Box
           component="div"
@@ -147,7 +168,7 @@ const DashBoard = () => {
           }}
         >
           <CircleIcon />
-          <p>Partidas Perdidas</p>
+          <p>Partidas Perdidas *5 puntos o menos</p>
         </Box>
       </Grid>
     </Grid>

@@ -7,12 +7,12 @@ import { useContext } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { signInWithGoogle,user } = useContext(TriviaContext);
+  const { signInWithGoogle, user } = useContext(TriviaContext);
 
   const handleClick = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await signInWithGoogle();
-    navigate("/dashboard");
+      navigate("/dashboard");
   };
   return (
     <Box

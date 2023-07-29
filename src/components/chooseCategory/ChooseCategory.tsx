@@ -21,7 +21,6 @@ const ChooseCategory = () => {
 
   useEffect(() => {
     resetScore();
-    console.log("score reseteado")
   }, []);
 
   return (
@@ -41,7 +40,7 @@ const ChooseCategory = () => {
         }}
       >
         <Button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/dashboard")}
           variant="contained"
           sx={{
             backgroundColor: "lime",
@@ -59,7 +58,6 @@ const ChooseCategory = () => {
         >
           {arrayObjetos.map(({ titulo, Icon, number }, index) => (
             <Grid
-              /* onClick={() =>navigate("/gaming")} */
               onClick={() => handleSelect(number)}
               key={index}
               sx={{
