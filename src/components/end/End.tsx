@@ -1,33 +1,29 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { sumAnswers } from "../../helper";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  nextQuestion: number;
+  handleResetEnd:()=>void
 };
 
-const End = ({ nextQuestion }: Props) => {
+
+const End = ({handleResetEnd}:Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { user, score, saveScore } = useContext(TriviaContext);
+  const { user, score } = useContext(TriviaContext);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const navigate = useNavigate();
 
   const handleFinished = () => {
     navigate("/chooseCategory");
+    handleResetEnd()
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { email, displayName } = user;
+  const { displayName } = user;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const scoreAndUser = { name:displayName,email: email, score: sumAnswers(score) };
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    saveScore(scoreAndUser, nextQuestion);
-  }, []);
 
   return (
     <div>

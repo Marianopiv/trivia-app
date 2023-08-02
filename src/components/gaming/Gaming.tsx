@@ -5,13 +5,14 @@ import {
   Radio,
   FormControlLabel,
   Grid,
+  Box,
 } from "@mui/material";
 import CircularProgressWithLabel from "../circularProgressWithLabel/CircularProgressWithLabel";
-import { correctQuotes, findRightOne, sumAnswers } from "../../helper";
+import { correctQuotes, findRightOne } from "../../helper";
 import { Check, Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 type Props = {
   correct_answer: string;
@@ -28,7 +29,7 @@ const Gaming = ({
   handleNextQuestion,
 }: Props) => {
   const [toogleAnswers, setToogleAnswers] = useState(false);
-  const { handleScore } = useContext(TriviaContext);
+  const { handleScore, isSmallViewport } = useContext(TriviaContext);
 
   const handleAnswer = (chosenAnswer: string, correct_answer: string) => {
     handleScore(chosenAnswer, correct_answer);
@@ -47,6 +48,7 @@ const Gaming = ({
         flexDirection: "column",
         alignItems: "center",
         zIndex: 100,
+        background: `${isSmallViewport ? "#01d5bd" : ""}`,
         paddingTop: 8,
       }}
     >
@@ -78,10 +80,26 @@ const Gaming = ({
             justifyContent="center"
             width={1200}
           >
+            {toogleAnswers && (
+              <Box
+                component="div"
+                sx={{
+                  position: "absolute",
+                  width: 1300,
+                  height: 150,
+                  color: "blue",
+                  zIndex: 1000,
+                }}
+              ></Box>
+            )}
             {shuffledAnswers.map((answer, index) => (
               <Grid
                 onClick={() => handleAnswer(answer, correct_answer)}
-                sx={{ display: "flex", alignItems: "center" }}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  position: "relative",
+                }}
                 key={index}
                 item
                 xs={6}
@@ -92,11 +110,11 @@ const Gaming = ({
                     borderColor: "white",
                     color: "white",
                     width: 590,
-                    backgroundColor: "black",
+                    backgroundColor: `${findRightOne(correct_answer, answer)&&toogleAnswers?"green":"black"}`,
                   }}
-                  value={answer}
+                  value={correctQuotes(answer)}
                   control={<Radio color="secondary" />}
-                  label={answer}
+                  label={correctQuotes(answer)}
                 />
                 {toogleAnswers &&
                   (findRightOne(correct_answer, answer) ? (

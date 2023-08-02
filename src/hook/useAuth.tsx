@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const useAuth = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({displayName:"",email:""});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

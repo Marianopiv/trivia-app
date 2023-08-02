@@ -6,29 +6,37 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { getPercentage, makeNameShorter } from "../../helper";
+import Loader from "../../loader/Loader";
 const DashBoard = () => {
   const navigate = useNavigate();
-  const { getScores, userResults, averages,user } = useContext(TriviaContext);
+  const { getScores, userResults, averages, user, isSmallViewport, loader } =
+    useContext(TriviaContext);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (!user.email) {
-      navigate("/")
+      navigate("/");
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
     getScores();
   }, []);
 
+  if (loader) {
+    return <Loader />;
+  }
+
   return (
     <Grid container sx={{ marginTop: 4 }}>
       <Grid
         item
-        xs={6}
+        xs={8}
+        sm={6}
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: 400,
-          gap: 4,
+          gap: isSmallViewport ? 0 : 4,
+          paddingLeft: isSmallViewport ? 20 : 0,
         }}
       >
         <Box
@@ -81,9 +89,14 @@ const DashBoard = () => {
               fontSize="large"
             />
           </Box>
-          {averages?.map((item) => (
-            <Box component="p" sx={{textTransform:"capitalize",textAlign:"center"}}>
-              {makeNameShorter(item.name)} {item.averageScore} (matches:
+          {averages?.slice(0,4).map((item, index) => (
+            <Box
+              key={index}
+              component="p"
+              sx={{ textTransform: "capitalize", textAlign: "center" }}
+            >
+              {makeNameShorter(item.name)} {item.averageScore.toFixed(2)}{" "}
+              (matches:
               {item.matches})
             </Box>
           ))}
@@ -91,17 +104,19 @@ const DashBoard = () => {
       </Grid>
       <Grid
         item
-        xs={6}
+        xs={9}
+        sm={6}
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          paddingLeft: isSmallViewport ? 14 : 0,
         }}
       >
         <Box
           component="div"
           sx={{
-            width: 800,
+            width: isSmallViewport ? 300 : 600,
             marginLeft: "auto",
             marginRight: "auto",
             display: "flex",

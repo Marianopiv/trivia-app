@@ -1,17 +1,19 @@
 import { DocumentData, WithFieldValue } from "firebase/firestore";
 
 export interface TriviaContextProps {
-    user:any,
+    user:UserData,
     score:number[],
     questions:Question[],
-    userResults:UserResults[],
-    averages:Averages[],
+    userResults:DocumentData[],
+    averages:DocumentData[],
+    isSmallViewport: boolean,
+    loader:boolean,
     signInWithGoogle: () => Promise<void>;
     selectCategory: (category:number) => Promise<void>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handleScore:(chosenAnswer: string, correct_answer: string)=>void,
     resetScore:()=>void,
-    saveScore:(obtainedScore: WithFieldValue<DocumentData>,questionsMade:number)=>Promise<void>
+    saveScore:(obtainedScore: WithFieldValue<DocumentData>)=>Promise<void>
     getScores:() => Promise<void>,
 }
 
@@ -37,3 +39,10 @@ export interface Averages {
     averageScore:number,
     matches:number
 }
+
+export interface UserData {
+    displayName:string,
+    email:string
+}
+
+export interface ThemeQuery { breakpoints: { down: (size: string) => string } }

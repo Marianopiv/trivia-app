@@ -5,6 +5,7 @@ import { arrayObjetos } from "../../config/config";
 import Category from "../../UI/Category";
 import { useContext, useEffect } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
+import 'animate.css'; 
 
 const ChooseCategory = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const ChooseCategory = () => {
           {arrayObjetos.map(({ titulo, Icon, number }, index) => (
             <Grid
               onClick={() => handleSelect(number)}
-              key={index}
+              key={number}
               sx={{
                 border: 1,
                 borderColor: "white",
@@ -69,6 +70,7 @@ const ChooseCategory = () => {
                   color: "lime",
                   cursor: "pointer",
                   borderColor: "lime",
+                  className:"animate__animated animate__heartBeat"
                 },
               }}
               item

@@ -4,6 +4,7 @@ import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { useContext } from "react";
+import 'animate.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Home = () => {
   return (
     <Box
       component="div"
+      className="animate__animated animate__fadeIn"
       sx={{
         display: "flex",
         flexDirection: "column",

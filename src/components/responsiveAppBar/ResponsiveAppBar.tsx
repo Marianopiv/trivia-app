@@ -193,8 +193,8 @@ function ResponsiveAppBar() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+            {settings.map((setting,index) => (
+              <MenuItem key={index} onClick={handleCloseUserMenu}>
                 <Typography onClick={()=>navigate(setting.to)} textAlign="center">{setting.option}</Typography>
               </MenuItem>
             ))}

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { DocumentData } from "firebase/firestore";
 import { Averages, UserResults } from "../interface/interfaces";
 
 export const shuffleArray = (array: string[]) => {
@@ -22,14 +24,14 @@ export const correctQuotes = (question: string) => {
   return question;
 };
 
-export const getPercentage = (userResults: [], condition: string) => {
+export const getPercentage = (userResults: UserResults[], condition: string) => {
   return condition === "higher"
     ? userResults.filter((item) => item.score >= 6).length
     : userResults.filter((item) => item.score < 6).length;
 };
 
-export const getAverageScore = (array: UserResults[]) => {
-  let reducedArr: Averages[] = Object.values(
+export const getAverageScore = (array: DocumentData[]) => {
+  let reducedArr: DocumentData[] = Object.values(
     array.reduce((acc, obj) => {
       const name = obj.name;
       const score = obj.score;
