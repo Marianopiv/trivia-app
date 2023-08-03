@@ -7,7 +7,7 @@ type CustomUser = Partial<User>
 
 const useAuth = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-    const [user, setUser] = useState <CustomUser>({displayName:"",email:""});
+    const [user, setUser] = useState <CustomUser>({displayName:"",email:"",photoURL:""});
     const [, setIsAuthenticated] = useState(false);
 
 
