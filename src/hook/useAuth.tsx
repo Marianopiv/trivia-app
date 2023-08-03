@@ -21,7 +21,6 @@ const useAuth = () => {
       const result = await signInWithPopup(auth, provider);
       // Si la autenticación es exitosa, el usuario estará disponible en result.user
       setUser(result.user)
-      console.log(result.user)
       setIsAuthenticated(true)
       
     } catch (error) {

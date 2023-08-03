@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { checkResults, getPercentage, makeNameShorter } from "../../helper";
+import fondo from "../../assets/fondo.jpg"
 import Loader from "../../loader/Loader";
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const DashBoard = () => {
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
     getScores();
-    
+
   }, []);
 
   if (loader) {
@@ -31,7 +32,8 @@ const DashBoard = () => {
   }
 
   return (
-    <Grid container sx={{ marginTop: 4 }}>
+    <Grid container sx={{ marginTop: 4,backgroundImage:isSmallViewport ?`url(${fondo})`:"", backgroundSize: "cover", // Optional, adjust the background size as needed
+    backgroundRepeat: "no-repeat" }}>
       <Grid
         item
         xs={8}
@@ -115,15 +117,16 @@ const DashBoard = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          paddingLeft: isSmallViewport ? 14 : 0,
         }}
       >
         <Box
+          className="piChartContainer"
           component="div"
           sx={{
             width: isSmallViewport ? 300 : 600,
             marginLeft: "auto",
             marginRight: "auto",
+            paddingLeft:isSmallViewport?15:"",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
