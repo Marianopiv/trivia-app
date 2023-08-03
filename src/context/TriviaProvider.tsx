@@ -4,8 +4,6 @@ import { createContext, useState } from "react";
 import {
   TriviaContextProps,
   Question,
-  Averages,
-  UserResults,
   ThemeQuery,
 } from "../interface/interfaces";
 import useAuth from "../hook/useAuth";
@@ -23,11 +21,10 @@ import {
 import { db } from "../Firebase";
 import { getAverageScore } from "../helper";
 import { useMediaQuery } from "@mui/material";
-import { Theme } from "@emotion/react";
 
 export const TriviaContext = createContext<TriviaContextProps>({
   signInWithGoogle: () => Promise.resolve(),
-  selectCategory: (category: number) => Promise.resolve(),
+  selectCategory: () => Promise.resolve(),
   user: {displayName:"",email:""},
   questions: [],
   score: [],
@@ -35,11 +32,11 @@ export const TriviaContext = createContext<TriviaContextProps>({
   userResults: [],
   loader: false,
   isSmallViewport:false,
-  handleScore: (chosenAnswer: string, correct_answer: string) => "",
+  handleScore: (_chosenAnswer: string) => "",
   resetScore: () => "",
   getScores: () => Promise.resolve(),
-  saveScore: (obtainedScore: WithFieldValue<DocumentData> ) => Promise.resolve(),
-});
+  saveScore: () => Promise.resolve(),
+})
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TriviaProvider = ({ children }: any) => {
@@ -95,7 +92,6 @@ const TriviaProvider = ({ children }: any) => {
       const matchesArray = querySnapshot.docs.map((doc) => doc.data());
       setUserResults(matchesArray);
       setLoader(false);
-      console.log(matchesArray);
     } catch (error) {
       setLoader(false);
       console.log(error);

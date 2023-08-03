@@ -1,7 +1,8 @@
+import { User } from "firebase/auth";
 import { DocumentData, WithFieldValue } from "firebase/firestore";
 
 export interface TriviaContextProps {
-    user:UserData,
+    user:Partial<User>,
     score:number[],
     questions:Question[],
     userResults:DocumentData[],

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useContext, useState, useEffect } from "react";
@@ -11,7 +13,7 @@ const GamingContainer = () => {
   const { questions, user, score, saveScore } = useContext(TriviaContext);
   const [nextQuestion, setNextQuestion] = useState(0);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
-  const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number>(-1);
+  const [, setCorrectAnswerIndex] = useState<number>(-1);
   const [endGame, setEndGame] = useState<boolean>(false);
   const { displayName, email } = user;
   const scoreAndUser = {

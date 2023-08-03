@@ -1,3 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Box, Button, Grid } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { PieChart } from "react-minimal-pie-chart";
@@ -5,7 +9,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
-import { getPercentage, makeNameShorter } from "../../helper";
+import { checkResults, getPercentage, makeNameShorter } from "../../helper";
 import Loader from "../../loader/Loader";
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -19,6 +23,7 @@ const DashBoard = () => {
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
     getScores();
+    
   }, []);
 
   if (loader) {
@@ -48,7 +53,7 @@ const DashBoard = () => {
             p: 3,
           }}
         >
-          <p>Total partidas</p>
+          <p>Total played</p>
           <p>{userResults.length}</p>
           <Button
             onClick={() => navigate("/ChooseCategory")}
@@ -89,7 +94,7 @@ const DashBoard = () => {
               fontSize="large"
             />
           </Box>
-          {averages?.slice(0,4).map((item, index) => (
+          {averages?.slice(0, 4).map((item, index) => (
             <Box
               key={index}
               component="p"
@@ -129,6 +134,9 @@ const DashBoard = () => {
             Metrics
           </Box>
           <PieChart
+            animate={true}
+            animationEasing={"transition-timing-function: ease-in"}
+            animationDuration={200}
             data={[
               {
                 title: "One",
@@ -136,25 +144,30 @@ const DashBoard = () => {
                 color: "#00ff00",
               },
               {
-                title: "Three",
+                title: "Two",
                 value: getPercentage(userResults),
                 color: "#FBFBFB",
               },
             ]}
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            labelPosition={checkResults(userResults)?0:50}
             label={({ x, y, dx, dy, dataEntry }) => (
               <text
                 x={x}
                 y={y}
                 dx={dx}
                 dy={dy}
-                dominant-baseline="central"
-                text-anchor="middle"
                 style={{
+                  dominantBaseline: "middle",
+                  textAnchor: "middle",
+                  color: "black",
                   fontSize: "10px",
                   fontFamily: "sans-serif",
                 }}
               >
-                {Math.round(dataEntry.percentage).toString() + "%"}
+                {Math.round(dataEntry.percentage) > 0
+                  ? Math.round(dataEntry.percentage).toString() + "%"
+                  : ""}
               </text>
             )}
           />
@@ -170,7 +183,7 @@ const DashBoard = () => {
           }}
         >
           <CircleIcon sx={{ color: "lime" }} />
-          <p>Partidas Ganadas *6 puntos o mas</p>
+          <p>Matches Won *6 points or less</p>
         </Box>
         <Box
           component="div"
@@ -183,7 +196,7 @@ const DashBoard = () => {
           }}
         >
           <CircleIcon />
-          <p>Partidas Perdidas *5 puntos o menos</p>
+          <p>Matches Lost *5 points or less</p>
         </Box>
       </Grid>
     </Grid>

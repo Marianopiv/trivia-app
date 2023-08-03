@@ -16,7 +16,7 @@ const End = ({handleResetEnd}:Props) => {
   const navigate = useNavigate();
 
   const handleFinished = () => {
-    navigate("/chooseCategory");
+    navigate("/dashboard");
     handleResetEnd()
   };
 

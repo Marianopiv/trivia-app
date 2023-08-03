@@ -8,7 +8,7 @@ import 'animate.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { signInWithGoogle, user } = useContext(TriviaContext);
+  const { signInWithGoogle } = useContext(TriviaContext);
 
   const handleClick = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

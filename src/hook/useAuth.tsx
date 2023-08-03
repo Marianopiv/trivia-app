@@ -1,14 +1,14 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useState } from "react";
+
+type CustomUser = Partial<User>
 
 
 const useAuth = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-    const [user, setUser] = useState({displayName:"",email:""});
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState <CustomUser>({displayName:"",email:""});
+    const [, setIsAuthenticated] = useState(false);
 
 
 

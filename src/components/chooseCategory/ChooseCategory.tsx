@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Container, Button, Box, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -27,12 +28,11 @@ const ChooseCategory = () => {
   return (
     <Container
       component={"div"}
-      sx={{ color: "white", width: "100vw" }}
+      sx={{ color: "white", width: "100vw",display:"flex",justifyContent: "center"}}
       maxWidth="lg"
     >
       <Box
         sx={{
-          paddingLeft: 10,
           paddingTop: 4,
           display: "flex",
           flexDirection: "column",
@@ -50,14 +50,14 @@ const ChooseCategory = () => {
             fontWeight: "bold",
           }}
         >
-          Volver
+          Back
         </Button>
         <Grid
           container
           spacing={2}
           sx={{ display: "flex", gap: 2, justifyContent: "center" }}
         >
-          {arrayObjetos.map(({ titulo, Icon, number }, index) => (
+          {arrayObjetos.map(({ titulo, Icon, number }) => (
             <Grid
               onClick={() => handleSelect(number)}
               key={number}
@@ -75,7 +75,8 @@ const ChooseCategory = () => {
               }}
               item
               xs={6}
-              sm={2}
+              sm={4}
+              md={2}
             >
               <Category text={titulo} Icon={<Icon />} action={() => ""} />
             </Grid>

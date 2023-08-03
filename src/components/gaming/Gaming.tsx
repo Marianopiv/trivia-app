@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   Button,
   FormControl,
@@ -26,6 +27,7 @@ const Gaming = ({
   shuffledAnswers,
   question,
   correct_answer,
+  nextQuestion,
   handleNextQuestion,
 }: Props) => {
   const [toogleAnswers, setToogleAnswers] = useState(false);
@@ -65,6 +67,7 @@ const Gaming = ({
       >
         <CircularProgressWithLabel handleNextQuestion={handleNextQuestion} />
         <h1>{correctQuotes(question)}</h1>
+        <h2>Question Number {nextQuestion+1} of 10</h2>
       </Grid>
 
       <FormControl sx={{ marginTop: 8, width: 1200, paddingLeft: 2 }}>
