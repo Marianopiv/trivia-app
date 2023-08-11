@@ -19,7 +19,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../Firebase";
-import { getAverageFromUser, getAverageScore } from "../helper";
+import { getAverageScore, getAverageTest } from "../helper";
 import { useMediaQuery } from "@mui/material";
 
 export const TriviaContext = createContext<TriviaContextProps>({
@@ -32,7 +32,7 @@ export const TriviaContext = createContext<TriviaContextProps>({
   userResults: [],
   loader: false,
   isSmallViewport: false,
-  userAverage:0,
+  userAverage: 0,
   handleScore: (_chosenAnswer: string) => "",
   resetScore: () => "",
   getScores: () => Promise.resolve(),
@@ -69,8 +69,6 @@ const TriviaProvider = ({ children }: any) => {
     }
   };
 
-  
-
   const getScores = async () => {
     try {
       setLoader(true);
@@ -84,12 +82,9 @@ const TriviaProvider = ({ children }: any) => {
       const matchesArray = querySnapshot.docs.map((doc) => doc.data());
       setUserResults(matchesArray);
       if (user.email) {
-        const foundPlayer = getAverageFromUser(averages, user.email);
+        const averageScore = getAverageTest(matchesArray);
 
-        if (foundPlayer) {
-          const averageScoreToUpdate: number = foundPlayer.averageScore;
-          setUserAverage(averageScoreToUpdate);
-        }
+        setUserAverage(averageScore);
       }
       setLoader(false);
     } catch (error) {

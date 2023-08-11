@@ -57,14 +57,17 @@ export const getAverageScore = (array: DocumentData[]) => {
     averageScore: totalScore / matches,
     matches: matches,
   }));
-  reducedArr = reducedArr
-    .sort((a, b) => b.averageScore - a.averageScore)
+  reducedArr = reducedArr.sort((a, b) => b.averageScore - a.averageScore);
   return reducedArr;
 };
 
-export const getAverageFromUser = (array: DocumentData[],email:string) => {
-  const result = array.find((average)=>average.email===email)
-  return result;
+export const getAverageTest = (array: DocumentData[]) => {
+  let acumulatedNumbers = 0;
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/restrict-plus-operands
+  array.map((item) => (acumulatedNumbers = acumulatedNumbers + item.score));
+  acumulatedNumbers = acumulatedNumbers / array.length;
+  return acumulatedNumbers;
 };
 
 export const makeNameShorter = (name: string) => name.split(" ")[0];
