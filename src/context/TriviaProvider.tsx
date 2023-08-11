@@ -19,24 +19,25 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../Firebase";
-import { getAverageScore } from "../helper";
+import { getAverageFromUser, getAverageScore } from "../helper";
 import { useMediaQuery } from "@mui/material";
 
 export const TriviaContext = createContext<TriviaContextProps>({
   signInWithGoogle: () => Promise.resolve(),
   selectCategory: () => Promise.resolve(),
-  user: {displayName:"",email:""},
+  user: { displayName: "", email: "" },
   questions: [],
   score: [],
   averages: [],
   userResults: [],
   loader: false,
-  isSmallViewport:false,
+  isSmallViewport: false,
+  userAverage:0,
   handleScore: (_chosenAnswer: string) => "",
   resetScore: () => "",
   getScores: () => Promise.resolve(),
   saveScore: () => Promise.resolve(),
-})
+});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TriviaProvider = ({ children }: any) => {
@@ -47,9 +48,10 @@ const TriviaProvider = ({ children }: any) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [userResults, setUserResults] = useState<DocumentData[]>([]);
   const [averages, setAverages] = useState<DocumentData[]>([]);
+  const [userAverage, setUserAverage] = useState<number>();
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  const isSmallViewport = useMediaQuery((theme:ThemeQuery) =>
+  const isSmallViewport = useMediaQuery((theme: ThemeQuery) =>
     theme.breakpoints.down("sm")
   );
 
@@ -67,16 +69,7 @@ const TriviaProvider = ({ children }: any) => {
     }
   };
 
-  const saveScore = async (
-    obtainedScore: WithFieldValue<DocumentData>,
-  ) => {
-    const collectionRef = collection(db, "matches");
-    try {
-      await addDoc(collectionRef, obtainedScore);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   const getScores = async () => {
     try {
@@ -85,15 +78,31 @@ const TriviaProvider = ({ children }: any) => {
       const snapshotArray = await getDocs(collectionRef);
       const completeArray = snapshotArray.docs.map((doc) => doc.data());
       setAverages(getAverageScore(completeArray));
-
       const querySnapshot = await getDocs(
         query(collectionRef, where("email", "==", user.email))
       );
       const matchesArray = querySnapshot.docs.map((doc) => doc.data());
       setUserResults(matchesArray);
+      if (user.email) {
+        const foundPlayer = getAverageFromUser(averages, user.email);
+
+        if (foundPlayer) {
+          const averageScoreToUpdate: number = foundPlayer.averageScore;
+          setUserAverage(averageScoreToUpdate);
+        }
+      }
       setLoader(false);
     } catch (error) {
       setLoader(false);
+      console.log(error);
+    }
+  };
+
+  const saveScore = async (obtainedScore: WithFieldValue<DocumentData>) => {
+    const collectionRef = collection(db, "matches");
+    try {
+      await addDoc(collectionRef, obtainedScore);
+    } catch (error) {
       console.log(error);
     }
   };
@@ -110,6 +119,7 @@ const TriviaProvider = ({ children }: any) => {
         averages,
         loader,
         userResults,
+        userAverage,
         questions,
         user,
         isSmallViewport,

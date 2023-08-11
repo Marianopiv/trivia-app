@@ -1,33 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
 import { sumAnswers } from "../../helper";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  handleResetEnd:()=>void
+  handleResetEnd: () => void;
 };
 
-
-const End = ({handleResetEnd}:Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { user, score,isSmallViewport } = useContext(TriviaContext);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const End = ({ handleResetEnd }: Props) => {
+  const { user, score, isSmallViewport, getScores } = useContext(TriviaContext);
   const navigate = useNavigate();
 
   const handleFinished = () => {
     navigate("/dashboard");
-    handleResetEnd()
+    handleResetEnd();
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { displayName } = user;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    getScores();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
-      <Box component={`${isSmallViewport?"h2":"h1"}`} color={"white"}>
+      <Box component={`${isSmallViewport ? "h2" : "h1"}`} color={"white"}>
         {displayName}, tu puntaje es {sumAnswers(score)}
       </Box>
       <Button

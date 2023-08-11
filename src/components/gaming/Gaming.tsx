@@ -153,6 +153,7 @@ const Gaming = ({
                       (findRightOne(correct_answer, answer) ? (
                         <Check
                           sx={{
+                            position:"absolute",
                             backgroundColor: "black",
                             borderRadius: 200,
                             border: "2px solid green",
@@ -162,6 +163,7 @@ const Gaming = ({
                       ) : (
                         <Close
                           sx={{
+                            position:"absolute",
                             backgroundColor: "black",
                             borderRadius: 200,
                             border: "1px solid red",

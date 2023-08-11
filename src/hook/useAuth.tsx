@@ -27,7 +27,7 @@ const useAuth = () => {
       console.error("Error en la autenticación:", error);
     }
   };
-  return {signInWithGoogle,user}
+  return {signInWithGoogle,setUser,user}
 }
 
 export default useAuth

@@ -23,18 +23,21 @@ export const correctQuotes = (question: string) => {
   return question;
 };
 
-export const getPercentage = (userResults: DocumentData[], condition?: string) => {
+export const getPercentage = (
+  userResults: DocumentData[],
+  condition?: string
+) => {
   return condition === "higher"
     ? userResults.filter((item) => item.score >= 6).length
-    : userResults.filter((item) => item.score < 6).length
+    : userResults.filter((item) => item.score < 6).length;
 };
 
-export const checkResults = (userResults:DocumentData[]) => {
-  const allLost = userResults.every((item)=>item.score<6)
-  const allWin = userResults.every((item)=>item.score>=6)
+export const checkResults = (userResults: DocumentData[]) => {
+  const allLost = userResults.every((item) => item.score < 6);
+  const allWin = userResults.every((item) => item.score >= 6);
 
-return allLost||allWin
-}
+  return allLost || allWin;
+};
 
 export const getAverageScore = (array: DocumentData[]) => {
   let reducedArr: DocumentData[] = Object.values(
@@ -48,14 +51,20 @@ export const getAverageScore = (array: DocumentData[]) => {
 
       return acc;
     }, {})
-  ).map(({ name,email, totalScore, matches }) => ({
+  ).map(({ name, email, totalScore, matches }) => ({
     name,
     email,
     averageScore: totalScore / matches,
     matches: matches,
   }));
-  reducedArr= reducedArr.sort((a, b) => b.averageScore - a.averageScore).slice(0,5)
+  reducedArr = reducedArr
+    .sort((a, b) => b.averageScore - a.averageScore)
   return reducedArr;
 };
 
-export const makeNameShorter = (name: string) => (name.split(" ")[0])
+export const getAverageFromUser = (array: DocumentData[],email:string) => {
+  const result = array.find((average)=>average.email===email)
+  return result;
+};
+
+export const makeNameShorter = (name: string) => name.split(" ")[0];

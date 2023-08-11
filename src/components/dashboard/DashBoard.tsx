@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -14,7 +15,7 @@ import fondo from "../../assets/fondo.jpg"
 import Loader from "../../loader/Loader";
 const DashBoard = () => {
   const navigate = useNavigate();
-  const { getScores, userResults, averages, user, isSmallViewport, loader } =
+  const { getScores, userResults, averages,userAverage, user, isSmallViewport, loader } =
     useContext(TriviaContext);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ const DashBoard = () => {
       navigate("/");
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
+    console.log("se ejecuto el useEffect")
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getScores();
 
   }, []);
@@ -43,7 +46,8 @@ const DashBoard = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: isSmallViewport ? 0 : 4,
+          justifyContent: "center",
+          gap: isSmallViewport ? 1 : 4,
         }}
       >
         <Box
@@ -51,11 +55,12 @@ const DashBoard = () => {
             border: 2,
             borderColor: "white",
             color: "white",
-            fontSize: { xs: 30, xl: 40 },
+            fontSize: { xs: 20, xl: 30 },
           }}
         >
-          <p>Total played</p>
-          <p>{userResults.length}</p>
+          <p>Average Score</p>
+          <p>{`${userAverage?.toFixed(2)}`}</p>
+          <p>matches played {userResults.length}</p>
           <Button
             onClick={() => navigate("/ChooseCategory")}
             variant="contained"
@@ -74,7 +79,7 @@ const DashBoard = () => {
             fontSize: 30,
             p: 1,
             /* height: 200, */
-            width: 200,
+            width: {xs:200,lg:300}
           }}
         >
           <Box

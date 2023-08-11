@@ -7,6 +7,7 @@ export interface TriviaContextProps {
     questions:Question[],
     userResults:DocumentData[],
     averages:DocumentData[],
+    userAverage:number | undefined,
     isSmallViewport: boolean,
     loader:boolean,
     signInWithGoogle: () => Promise<void>;

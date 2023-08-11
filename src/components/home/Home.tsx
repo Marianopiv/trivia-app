@@ -34,7 +34,7 @@ const Home = () => {
           zIndex: 100,
           color: "white",
           position: "relative",
-          fontSize: 100,
+          fontSize:{xs:80,md:100},
           display: "flex",
           alignItems: "center",
           gap: 3,
@@ -47,9 +47,8 @@ const Home = () => {
       </Box>
       <Button
         size="large"
-        sx={{ position: "relative", zindex: 100, width: 280 }}
+        sx={{ position: "relative", zindex: 100, width: 280,backgroundColor:"lime",color:"black",font:"bold" }}
         variant="contained"
-        color="primary"
         // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment
         onClick={handleClick}
       >
