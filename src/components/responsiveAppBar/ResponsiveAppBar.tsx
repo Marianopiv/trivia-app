@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
           justifyContent: "space-around",
           alignItems: "center",
           background: "black",
-          height: 100,
+          height:{ xs: 60, xl: 80 },
         }}
       >
         <Box

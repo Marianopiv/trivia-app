@@ -7,10 +7,12 @@ import { TriviaContext } from "../../context/TriviaProvider";
 import Gaming from "../gaming/Gaming";
 import End from "../end/End";
 import { shuffleArray, sumAnswers } from "../../helper";
+import { Box } from "@mui/material";
+import fondo from "../../assets/fondo.jpg"
 
 const GamingContainer = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { questions, user, score, saveScore } = useContext(TriviaContext);
+  const { questions, user, score,isSmallViewport, saveScore } = useContext(TriviaContext);
   const [nextQuestion, setNextQuestion] = useState(0);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [, setCorrectAnswerIndex] = useState<number>(-1);
@@ -38,7 +40,6 @@ const GamingContainer = () => {
       setCorrectAnswerIndex(shuffled.indexOf(correct_answer));
     }
     if (!endGame && nextQuestion >= 9) {
-      console.log("entro en el useEffect de saveScore");
       saveScore(scoreAndUser);
       setEndGame(true);
       setNextQuestion(0);
@@ -56,7 +57,9 @@ const GamingContainer = () => {
   const currentQuestion =
     nextQuestion >= 10 ? questions[9] : questions[nextQuestion];
   return (
-    <div>
+    <Box sx={{backgroundImage: isSmallViewport ? `url(${fondo})` : "",
+    backgroundSize: "cover", // Optional, adjust the background size as needed
+    backgroundRepeat: "no-repeat",height:"100vh"}}>
       <Gaming
         key={nextQuestion}
         nextQuestion={nextQuestion}
@@ -65,7 +68,7 @@ const GamingContainer = () => {
         question={currentQuestion?.question}
         handleNextQuestion={handleNextQuestion}
       />
-    </div>
+    </Box>
   );
 };
 

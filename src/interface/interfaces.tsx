@@ -46,4 +46,4 @@ export interface UserData {
     email:string
 }
 
-export interface ThemeQuery { breakpoints: { down: (size: string) => string } }
+export interface ThemeQuery { breakpoints: { down: (size: string) => string,up:(size:string)=>string} }

@@ -11,7 +11,7 @@ type Props = {
 
 const End = ({handleResetEnd}:Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { user, score } = useContext(TriviaContext);
+  const { user, score,isSmallViewport } = useContext(TriviaContext);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const End = ({handleResetEnd}:Props) => {
 
   return (
     <div>
-      <Box component={"h1"} color={"white"}>
+      <Box component={`${isSmallViewport?"h2":"h1"}`} color={"white"}>
         {displayName}, tu puntaje es {sumAnswers(score)}
       </Box>
       <Button

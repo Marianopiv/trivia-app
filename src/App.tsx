@@ -12,8 +12,7 @@ function App() {
         <CardMedia
           component="img"
           width="100%"
-          height="100%"
-          sx={{ position: "absolute", top: 0, left: 0, zIndex: -100}}
+          sx={{ position: "absolute", top: 0, left: 0, zIndex: -100,height:{ xs: "100%", md: "140%" }}}
           image={fondo}
           alt="bg"
         />

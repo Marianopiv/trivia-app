@@ -54,7 +54,7 @@ export const getAverageScore = (array: DocumentData[]) => {
     averageScore: totalScore / matches,
     matches: matches,
   }));
-  reducedArr= reducedArr.sort((a, b) => b.averageScore - a.averageScore).sort((a,b)=>a.matches - b.matches).slice(0,4)
+  reducedArr= reducedArr.sort((a, b) => b.averageScore - a.averageScore).slice(0,5)
   return reducedArr;
 };
 

@@ -7,10 +7,11 @@ import Category from "../../UI/Category";
 import { useContext, useEffect } from "react";
 import { TriviaContext } from "../../context/TriviaProvider";
 import 'animate.css'; 
+import fondo from "../../assets/fondo.jpg"
 
 const ChooseCategory = () => {
   const navigate = useNavigate();
-  const { selectCategory, resetScore } = useContext(TriviaContext);
+  const { selectCategory, resetScore,isSmallViewport } = useContext(TriviaContext);
 
   const handleSelect = async (categoryNumber: number) => {
     try {
@@ -28,12 +29,14 @@ const ChooseCategory = () => {
   return (
     <Container
       component={"div"}
-      sx={{ color: "white", width: "100vw",display:"flex",justifyContent: "center"}}
+      sx={{ color: "white", width: "100vw",display:"flex",justifyContent: "center",backgroundImage:isSmallViewport ?`url(${fondo})`:"", backgroundSize: "cover", // Optional, adjust the background size as needed
+      backgroundRepeat: "no-repeat"}}
       maxWidth="lg"
+      
     >
       <Box
         sx={{
-          paddingTop: 4,
+          paddingTop: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "baseline",

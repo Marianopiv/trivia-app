@@ -32,8 +32,9 @@ const DashBoard = () => {
   }
 
   return (
-    <Grid container sx={{ marginTop: 4,backgroundImage:isSmallViewport ?`url(${fondo})`:"", backgroundSize: "cover", // Optional, adjust the background size as needed
-    backgroundRepeat: "no-repeat" }}>
+    <Grid container sx={{ marginTop: { xs: 2, xl: 4 },backgroundImage:isSmallViewport ?`url(${fondo})`:"", backgroundSize: "cover", // Optional, adjust the background size as needed
+    backgroundRepeat: "no-repeat",display:"flex",justifyContent: "center"}
+  }>
       <Grid
         item
         xs={8}
@@ -43,7 +44,6 @@ const DashBoard = () => {
           flexDirection: "column",
           alignItems: "center",
           gap: isSmallViewport ? 0 : 4,
-          paddingLeft: isSmallViewport ? 20 : 0,
         }}
       >
         <Box
@@ -51,8 +51,7 @@ const DashBoard = () => {
             border: 2,
             borderColor: "white",
             color: "white",
-            fontSize: 40,
-            p: 3,
+            fontSize: { xs: 30, xl: 40 },
           }}
         >
           <p>Total played</p>
@@ -61,7 +60,7 @@ const DashBoard = () => {
             onClick={() => navigate("/ChooseCategory")}
             variant="contained"
             color="primary"
-            sx={{ zindex: 100, width: 300 }}
+            sx={{ zindex: 100, width: { xs: 200, xl: 300 },m:1 }}
           >
             New Game
           </Button>
@@ -71,11 +70,11 @@ const DashBoard = () => {
             border: 2,
             borderColor: "white",
             color: "white",
-            fontSize: 20,
             fontFamily: "Helvetica",
-            p: 3,
-            maxHeight: 350,
-            width: 300,
+            fontSize: 30,
+            p: 1,
+            /* height: 200, */
+            width: 200,
           }}
         >
           <Box
@@ -85,7 +84,7 @@ const DashBoard = () => {
               flexDirection: "row",
               justifyContent: "space-around",
               fontFamily: "Bebas Neue",
-              fontSize: 40,
+              fontSize: 30,
               height: 60,
             }}
           >
@@ -96,11 +95,11 @@ const DashBoard = () => {
               fontSize="large"
             />
           </Box>
-          {averages?.slice(0, 4).map((item, index) => (
+          {averages?.slice(0, 5).map((item, index) => (
             <Box
               key={index}
               component="p"
-              sx={{ textTransform: "capitalize", textAlign: "center" }}
+              sx={{ textTransform: "capitalize", textAlign: "center",fontSize:12 }}
             >
               {makeNameShorter(item.name)} {item.averageScore.toFixed(2)}{" "}
               (matches:
@@ -111,7 +110,7 @@ const DashBoard = () => {
       </Grid>
       <Grid
         item
-        xs={9}
+        xs={10}
         sm={6}
         sx={{
           display: "flex",
@@ -123,14 +122,13 @@ const DashBoard = () => {
           className="piChartContainer"
           component="div"
           sx={{
-            width: isSmallViewport ? 300 : 600,
+            width: isSmallViewport ? 300 : 350,
             marginLeft: "auto",
             marginRight: "auto",
-            paddingLeft:isSmallViewport?15:"",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height: 600,
+            height: { xs: 300, xl: 600 } ,
           }}
         >
           <Box component="h2" sx={{ fontSize: 40, color: "white" }}>
