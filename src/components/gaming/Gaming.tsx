@@ -69,7 +69,7 @@ const Gaming = ({
             border: 1,
             borderColor: "white",
             p: { xs:0, xl: 4 },
-            width: { xs: 370, md: 600, xl: 1200 },
+            width: { xs: 360, md: 600, xl: 1200 },
             height: { xs: 200, xl: 400 },
             backgroundColor: "black",
           }}
