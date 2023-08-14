@@ -92,7 +92,7 @@ const Gaming = ({
             sx={{
               marginTop: 8,
               display:"flex",
-              width: { xs: 370, md: 590, xl: 1200 }
+              width: { xs: 360, md: 590, xl: 1200 }
             }}
           >
             <RadioGroup
@@ -107,7 +107,7 @@ const Gaming = ({
                 display="flex"
                 justifyContent="center"
                 sx={{marginLeft: { xs: 1, md: 0 }}}
-                width={{ xs: 370, md: 590, xl: 1240 }}
+                width={{ xs: 360, md: 590, xl: 1240 }}
               >
                 {toogleAnswers && (
                   <Box
