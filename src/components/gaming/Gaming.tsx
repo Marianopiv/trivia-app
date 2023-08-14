@@ -68,7 +68,7 @@ const Gaming = ({
           sx={{
             border: 1,
             borderColor: "white",
-            p: { xs: 1, xl: 4 },
+            p: { xs:0, xl: 4 },
             width: { xs: 370, md: 600, xl: 1200 },
             height: { xs: 200, xl: 400 },
             backgroundColor: "black",
@@ -91,8 +91,8 @@ const Gaming = ({
           <FormControl
             sx={{
               marginTop: 8,
-              width: { xs: 370, md: 600, xl: 1200 },
-              paddingLeft: 2,
+              display:"flex",
+              width: { xs: 370, md: 590, xl: 1200 }
             }}
           >
             <RadioGroup
@@ -103,9 +103,11 @@ const Gaming = ({
               <Grid
                 container
                 rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                columnSpacing={{ xs: 0, sm: 2, xl: 1 }}
+                display="flex"
                 justifyContent="center"
-                width={{ xs: 370, md: 633, xl: 1240 }}
+                sx={{marginLeft: { xs: 1, md: 0 }}}
+                width={{ xs: 370, md: 590, xl: 1240 }}
               >
                 {toogleAnswers && (
                   <Box

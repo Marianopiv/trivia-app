@@ -23,7 +23,6 @@ const GamingContainer = () => {
     email: email,
     score: sumAnswers(score),
   };
-  console.log(questions.length, "esto es el length de questions");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
@@ -52,7 +51,6 @@ const GamingContainer = () => {
     return <End handleResetEnd={handleResetEnd} />;
   }
 
-  console.log(nextQuestion, "esto es next question");
 
   const currentQuestion =
     nextQuestion >= 10 ? questions[9] : questions[nextQuestion];

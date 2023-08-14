@@ -24,7 +24,6 @@ const DashBoard = () => {
       navigate("/");
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
-    console.log("se ejecuto el useEffect")
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getScores();
 
